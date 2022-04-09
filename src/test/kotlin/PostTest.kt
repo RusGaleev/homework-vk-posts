@@ -18,16 +18,18 @@ class PostTest {
                 replyOwnerId = 123,
                 replyPostId = 123,
                 friendsOnly = false,
-                comments = 123,
+                comments = Comments(123, true, false),
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
                 likes = 123,
                 reposts = 123,
                 postType = "Abacadaba",
                 singerId = "Abacadaba",
                 canPin = false,
-                canDelete = false,
                 canEdit = false,
                 markedAsAdds = false,
-                isFavorite = false))
+                isFavorite = false,
+            original = null))
             assertEquals(service.posts, index)
         }
         @Test
@@ -45,16 +47,18 @@ class PostTest {
                 replyOwnerId = 123,
                 replyPostId = 123,
                 friendsOnly = false,
-                comments = 123,
+                comments = Comments(123, true, false),
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
                 likes = 123,
                 reposts = 123,
                 postType = "Abacadaba",
                 singerId = "Abacadaba",
                 canPin = false,
-                canDelete = false,
                 canEdit = false,
                 markedAsAdds = false,
-                isFavorite = false))
+                isFavorite = false,
+            original = null))
             service.add(Post(
                 id = 2,
                 ownerId = 321,
@@ -65,16 +69,18 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = true,
-                comments = 321,
+                comments = Comments(123, true, false),
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
                 likes = 321,
                 reposts = 321,
                 postType = "adaba",
                 singerId = "adaba",
                 canPin = true,
-                canDelete = true,
                 canEdit = true,
                 markedAsAdds = true,
-                isFavorite = true))
+                isFavorite = true,
+            original = null))
             service.add(Post(
                 id = 3,
                 ownerId = 321,
@@ -85,16 +91,18 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = false,
-                comments = 321,
+                comments = Comments(123, true, false),
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
                 likes = 321,
                 reposts = 321,
                 postType = "abra",
                 singerId = "abra",
                 canPin = true,
-                canDelete = false,
                 canEdit = true,
                 markedAsAdds = false,
-                isFavorite = true))
+                isFavorite = true,
+                original = null))
             // создаём информацию об обновлении
             val update = Post(id = 3,
                 ownerId = 321,
@@ -105,16 +113,17 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = false,
-                comments = 321,
+                comments = Comments(123, true, false),
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
                 likes = 321,
                 reposts = 321,
                 postType = "abra",
                 singerId = "abra",
-                canPin = true,
-                canDelete = false,
                 canEdit = true,
                 markedAsAdds = false,
-                isFavorite = true)
+                isFavorite = true,
+            original = null, canPin = true)
 
             // выполняем целевое действие
             val result = service.update(update)

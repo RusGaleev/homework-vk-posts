@@ -7,22 +7,25 @@ fun main(){
         ownerId = 123,
         fromId = 123,
         createdBy = 123,
-        text = "Abacadaba",
+        text = "Abracadabra",
         date = 123,
         replyOwnerId = 123,
         replyPostId = 123,
         friendsOnly = false,
-        comments = 123,
+        comments = Comments(123, true, false),
+        geo = Geo("type", "12.221, 12.221"),
+        postSource = PostSource("","","","https://"),
         likes = 123,
         reposts = 123,
         postType = "Abacadaba",
         singerId = "Abacadaba",
         canPin = false,
-        canDelete = false,
         canEdit = false,
         markedAsAdds = false,
-        isFavorite = false))
+        isFavorite = false,
+        original = null))
     service.likeById(1)
+
     service.update(Post(
         id = 1,
         ownerId = 123,
@@ -33,14 +36,16 @@ fun main(){
         replyOwnerId = 123,
         replyPostId = 123,
         friendsOnly = false,
-        comments = 123,
+        comments = Comments(123, true, false),
+        geo = Geo("type", "12.221, 12.221"),
+        postSource = PostSource("","","","https://"),
         likes = 123,
         reposts = 123,
         postType = "Abra",
         singerId = "Abra",
         canPin = false,
-        canDelete = false,
         canEdit = false,
         markedAsAdds = false,
-        isFavorite = false))
+        isFavorite = false,
+        original = null))
 }
