@@ -1,3 +1,6 @@
+import java.lang.Exception
+import java.lang.RuntimeException
+
 open class Post(
     open var id: Long,
     open var ownerId: Long,
@@ -8,7 +11,6 @@ open class Post(
     val replyPostId: Long,
     val friendsOnly: Boolean,
     val replyOwnerId: Long,
-    var comments: Comments,
     val geo: Geo,
     val postSource: PostSource,
     likes: Int = 0,
@@ -21,7 +23,8 @@ open class Post(
     val markedAsAdds: Boolean,
     val isFavorite: Boolean,
     var copyHistory: Array<Post> = emptyArray<Post>(),
-    var attachmentsArray: Array<Attachments> = emptyArray()
+    var attachmentsArray: Array<Attachments> = emptyArray(),
+    var commentsArray: Array<Comment> = emptyArray()
 ) {
     open var likes: Int = likes
         set(value) {
@@ -36,7 +39,15 @@ open class Post(
 
     object WallService {
         var posts = emptyArray<Post>()
-            get() = field
+        //var comments  = emptyArray<Comment>()
+
+        fun createComment(comment: Comment) {
+            for ((index, post) in posts.withIndex()) {
+                if (post.id == comment.postId) {
+                    posts[index].commentsArray += comment
+                } else {throw PostNotFoundException("Post with id ${comment.postId} not found.")}
+            }
+        }
 
         fun add(post: Post): Post {
             //if (posts.lastIndex == -1) return throw IllegalArgumentException("Posts array is empty")
@@ -81,10 +92,11 @@ class PostSource(
 ) {
 }
 
-class Comments(
-    var count: Int,
-    var canPost: Boolean = true,
-    val groupsCanPost: Boolean = false
+class Comment(
+    val postId: Long,
+    val ownerId: Long,
+    val message: String
+
 ) {
 }
 
@@ -105,4 +117,5 @@ class Geo(
     ) {
     }
 }
+class PostNotFoundException(message: String):RuntimeException(message)
 

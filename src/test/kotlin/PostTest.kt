@@ -18,7 +18,6 @@ class PostTest {
                 replyOwnerId = 123,
                 replyPostId = 123,
                 friendsOnly = false,
-                comments = Comments(123, true, false),
                 geo = Geo("type", "12.221, 12.221"),
                 postSource = PostSource("","","","https://"),
                 likes = 123,
@@ -47,7 +46,6 @@ class PostTest {
                 replyOwnerId = 123,
                 replyPostId = 123,
                 friendsOnly = false,
-                comments = Comments(123, true, false),
                 geo = Geo("type", "12.221, 12.221"),
                 postSource = PostSource("","","","https://"),
                 likes = 123,
@@ -69,7 +67,6 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = true,
-                comments = Comments(123, true, false),
                 geo = Geo("type", "12.221, 12.221"),
                 postSource = PostSource("","","","https://"),
                 likes = 321,
@@ -91,7 +88,6 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = false,
-                comments = Comments(123, true, false),
                 geo = Geo("type", "12.221, 12.221"),
                 postSource = PostSource("","","","https://"),
                 likes = 321,
@@ -113,7 +109,6 @@ class PostTest {
                 replyOwnerId = 321,
                 replyPostId = 321,
                 friendsOnly = false,
-                comments = Comments(123, true, false),
                 geo = Geo("type", "12.221, 12.221"),
                 postSource = PostSource("","","","https://"),
                 likes = 321,
@@ -130,6 +125,111 @@ class PostTest {
 
             // проверяем результат (используйте assertTrue или assertFalse)
             assertTrue(result)
+        }
+        @Test(expected = PostNotFoundException::class)
+        fun createCommentException() {
+            val service = Post.WallService
+            val postId:Long = 1
+            // заполняем несколькими постами
+            service.add(Post(
+                id = postId,
+                ownerId = 123,
+                fromId = 123,
+                createdBy = 123,
+                text = "Abacadaba",
+                date = 123,
+                replyOwnerId = 123,
+                replyPostId = 123,
+                friendsOnly = false,
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
+                likes = 123,
+                reposts = 123,
+                postType = "Abacadaba",
+                singerId = "Abacadaba",
+                canPin = false,
+                canEdit = false,
+                markedAsAdds = false,
+                isFavorite = false,
+                original = null))
+            service.add(Post(
+                id = 2,
+                ownerId = 321,
+                fromId = 321,
+                createdBy = 321,
+                text = "Aba",
+                date = 321,
+                replyOwnerId = 321,
+                replyPostId = 321,
+                friendsOnly = true,
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
+                likes = 321,
+                reposts = 321,
+                postType = "adaba",
+                singerId = "adaba",
+                canPin = true,
+                canEdit = true,
+                markedAsAdds = true,
+                isFavorite = true,
+                original = null))
+            // создаём сообщение которое нужно добавить
+            val comment = Comment(10, 1, "some message")
+            service.createComment(comment)
+            assertFalse(service.posts[postId.toInt()].commentsArray.last() == comment)
+        }
+        @Test
+        fun createCommentTest() {
+            val service = Post.WallService
+            val postId:Long = 2
+
+            // заполняем несколькими постами
+            service.add(Post(
+                id = 1,
+                ownerId = 123,
+                fromId = 123,
+                createdBy = 123,
+                text = "Abacadaba",
+                date = 123,
+                replyOwnerId = 123,
+                replyPostId = 123,
+                friendsOnly = false,
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
+                likes = 123,
+                reposts = 123,
+                postType = "Abacadaba",
+                singerId = "Abacadaba",
+                canPin = false,
+                canEdit = false,
+                markedAsAdds = false,
+                isFavorite = false,
+                original = null))
+            service.add(Post(
+                id = postId,
+                ownerId = 321,
+                fromId = 321,
+                createdBy = 321,
+                text = "Aba",
+                date = 321,
+                replyOwnerId = 321,
+                replyPostId = 321,
+                friendsOnly = true,
+                geo = Geo("type", "12.221, 12.221"),
+                postSource = PostSource("","","","https://"),
+                likes = 321,
+                reposts = 321,
+                postType = "adaba",
+                singerId = "adaba",
+                canPin = true,
+                canEdit = true,
+                markedAsAdds = true,
+                isFavorite = true,
+                original = null))
+            // создаём сообщение которое нужно добавить
+            val comment = Comment(postId, 1, "some message")
+            service.createComment(comment)
+            assertTrue(service.posts[postId.toInt()].commentsArray.last() == comment)
         }
     }
 }

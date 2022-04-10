@@ -8,7 +8,6 @@ class Repost(
     replyPostId: Long,
     friendsOnly: Boolean,
     replyOwnerId: Long,
-    comments: Comments,
     geo: Geo,
     postSource: PostSource,
     likes: Int = 0,
@@ -19,8 +18,7 @@ class Repost(
     canPin: Boolean,
     canEdit: Boolean,
     markedAsAdds: Boolean,
-    isFavorite: Boolean,
-    copyHistory: Array<Post> = emptyArray<Post>()
+    isFavorite: Boolean
 ) : Post(
     id,
     ownerId,
@@ -31,7 +29,6 @@ class Repost(
     replyPostId,
     friendsOnly,
     replyOwnerId,
-    comments,
     geo,
     postSource,
     likes,
