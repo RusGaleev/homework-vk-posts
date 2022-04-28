@@ -1,8 +1,9 @@
-import Post.WallService
+import post.*
 
 fun main(){
     val service = WallService
-    service.add(Post(
+    service.add(
+        Post(
         id = 1,
         ownerId = 123,
         fromId = 123,
@@ -23,10 +24,12 @@ fun main(){
         canEdit = false,
         markedAsAdds = false,
         isFavorite = false,
-        original = null))
+        original = null)
+    )
     service.likeById(1)
 
-    service.update(Post(
+    service.update(
+        Post(
         id = 1,
         ownerId = 123,
         fromId = 123,
@@ -47,5 +50,6 @@ fun main(){
         canEdit = false,
         markedAsAdds = false,
         isFavorite = false,
-        original = null))
+        original = null)
+    )
 }

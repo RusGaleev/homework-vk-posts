@@ -1,14 +1,16 @@
 
 import org.junit.Assert.*
 import org.junit.Test
+import post.*
 
 class PostTest {
     class WallServiceTest {
         @Test
         fun addTest(){
-            val service = Post.WallService
+            val service = WallService
             val index = 1L
-            service.add(Post(
+            service.add(
+                Post(
                 id = index,
                 ownerId = 123,
                 fromId = 123,
@@ -29,15 +31,17 @@ class PostTest {
                 canEdit = false,
                 markedAsAdds = false,
                 isFavorite = false,
-            original = null))
+            original = null)
+            )
             assertEquals(service.posts, index)
         }
         @Test
         fun updateExisting() {
             // создаём целевой сервис
-            val service = Post.WallService
+            val service = WallService
             // заполняем несколькими постами
-            service.add(Post(
+            service.add(
+                Post(
                 id = 1,
                 ownerId = 123,
                 fromId = 123,
@@ -58,8 +62,10 @@ class PostTest {
                 canEdit = false,
                 markedAsAdds = false,
                 isFavorite = false,
-            original = null))
-            service.add(Post(
+            original = null)
+            )
+            service.add(
+                Post(
                 id = 2,
                 ownerId = 321,
                 fromId = 321,
@@ -80,8 +86,10 @@ class PostTest {
                 canEdit = true,
                 markedAsAdds = true,
                 isFavorite = true,
-            original = null))
-            service.add(Post(
+            original = null)
+            )
+            service.add(
+                Post(
                 id = 3,
                 ownerId = 321,
                 fromId = 321,
@@ -102,7 +110,8 @@ class PostTest {
                 canEdit = true,
                 markedAsAdds = false,
                 isFavorite = true,
-                original = null))
+                original = null)
+            )
             // создаём информацию об обновлении
             val update = Post(id = 3,
                 ownerId = 321,
