@@ -1,5 +1,3 @@
-import Post.WallService
-
 fun main(){
     val service = WallService
     service.add(Post(
